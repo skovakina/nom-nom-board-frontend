@@ -12,6 +12,7 @@ const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -28,13 +29,16 @@ const SignInForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
+      setLoading(true);
       console.log("signing in", formData);
 
       //   const signedInUser = await signIn(formData);
       //   setUser(signedInUser);
-      navigate("/");
+      //   navigate("/");
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,13 +81,13 @@ const SignInForm = () => {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Login
+                  {loading ? "Signing in..." : "Sign In"}
                 </Button>
 
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <a href="/sign-up" className="underline underline-offset-4">
-                    Sign up
+                    Sign Up
                   </a>
                 </div>
               </div>
@@ -97,10 +101,6 @@ const SignInForm = () => {
             </div>
           </CardContent>
         </Card>
-        <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-          By clicking continue, you agree to our{" "}
-          <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-        </div>
       </div>
     </AuthLayout>
   );
