@@ -1,4 +1,6 @@
-import { BASE_URL } from "./serverAPI.js";
+import { SERVER_URL } from "./serverAPI.js";
+
+const BASE_URL = `${SERVER_URL}/auth`;
 
 const signUp = async (formData) => {
   try {
