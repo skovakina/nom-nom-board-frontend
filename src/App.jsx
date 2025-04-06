@@ -31,7 +31,6 @@ function App() {
 
       {/* Main content container */}
       <div className="container mx-auto px-4 py-8">
-        {/* Example ShadCN Button - you can move this to a specific component later */}
         <Button variant="default" className="mb-4" onClick={handleTestToast}>
           Welcome to Nom Nom Board
         </Button>
