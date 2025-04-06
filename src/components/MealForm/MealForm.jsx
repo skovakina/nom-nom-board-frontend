@@ -54,7 +54,7 @@ const MealForm = ({ onAddMeal }) => {
                   id="name"
                   name="name"
                   value={formData.name}
-                  onChange={handleChange}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Name of your meal"
                 />
               </div>
@@ -92,6 +92,7 @@ const MealForm = ({ onAddMeal }) => {
               <div className="flex gap-2">
                 <Button type="submit">Save</Button>
                 <Button
+                  type="button"
                   variant="outline"
                   onClick={() =>
                     setFormData({ name: "", note: "", portions: 1, image: "" })
