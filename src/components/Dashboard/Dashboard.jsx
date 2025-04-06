@@ -1,7 +1,10 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { index } from '../../services/userService';
 import MealForm from '../MealForm/MealForm';
+
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -46,7 +49,7 @@ const Dashboard = () => {
 
   return (
     <main>
-      {/* Left Sidebar: Create Meal and Fridge */}
+      {/* Left Sidebar: Create Meal and Fridge(TODO) */}
       <div>
         <MealForm onAddMeal={handleAddMeal} />
         <Card>
