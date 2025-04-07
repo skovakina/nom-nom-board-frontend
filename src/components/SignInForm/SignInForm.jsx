@@ -32,9 +32,10 @@ const SignInForm = () => {
       setLoading(true);
       console.log("signing in", formData);
 
-      //   const signedInUser = await signIn(formData);
-      //   setUser(signedInUser);
-      //   navigate("/");
+      const signedInUser = await signIn(formData);
+      setUser(signedInUser);
+      console.log("signed in user", signedInUser);
+      // navigate("/");
     } catch (error) {
       setMessage(error.message);
     } finally {
