@@ -1,4 +1,6 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth`;
+import { SERVER_URL } from "./serverAPI.js";
+
+const BASE_URL = `${SERVER_URL}/auth`;
 
 const signUp = async (formData) => {
   try {
@@ -11,7 +13,6 @@ const signUp = async (formData) => {
     });
 
     const data = await res.json();
-    console.log("data", data);
 
     if (data.error) {
       throw new Error(data.error);
