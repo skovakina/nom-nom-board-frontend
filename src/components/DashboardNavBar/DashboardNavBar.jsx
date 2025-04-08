@@ -35,7 +35,7 @@ const DashboardNavBar = () => {
                                 <Button variant="outline"><Link to="/sign-up">Sign Up</Link></Button>
                             </li>
                             <li>
-                                <Button><Link to="/sign-in">Login</Link></Button>
+                                <Button><Link to="/sign-in">Log In</Link></Button>
                             </li>
                         </>
                     )}
