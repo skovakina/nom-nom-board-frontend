@@ -34,8 +34,8 @@ export default function Column({ title, cards, column, setCards }) {
     const before = element.dataset.before || "-1";
 
     const mealType = e.target?.dataset?.mealtype;
+    if (!mealType) return;
     draggedCard.mealType = mealType;
-    console.log(mealType);
 
     if (before !== cardId) {
       let copy = [...cards];
@@ -210,7 +210,7 @@ const DropIndicator = ({ beforeId, column }) => {
     <div
       data-before={beforeId || "-1"}
       data-column={column}
-      className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
+      className="h-2 w-full bg-violet-400 opacity-0"
     />
   );
 };

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import Column from "./Column";
+import Header from "./Header";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 
@@ -46,8 +47,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <p>Welcome, {user.username}!</p>
+      <Header />
       <main className="h-screen w-full">
         <div className="flex h-full w-full gap-3 overflow-scroll p-2 rounded-xl bg-neutral-100">
           <Column
