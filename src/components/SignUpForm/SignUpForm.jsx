@@ -52,7 +52,7 @@ const SignUpForm = () => {
             <div className="flex flex-col gap-6">
                 <Card className="overflow-hidden">
                     <CardContent className="grid p-0 md:grid-cols-2">
-                    <div className="relative hidden bg-muted md:block">
+                        <div className="relative hidden bg-muted md:block">
                             <img
                                 src="/placeholder.svg"
                                 alt="Image"
@@ -117,9 +117,16 @@ const SignUpForm = () => {
                                         {loading ? "Creating Account..." : "Create Account"}
                                     </Button>
                                 </div>
+                                <div className="text-center text-sm">
+                                    Already have an account?{" "}
+                                    <a href="/sign-in" className="underline underline-offset-4">
+                                        Sign In
+                                    </a>
+                                </div>
                             </div>
+
                         </form>
-                        
+
                     </CardContent>
                 </Card>
             </div>
