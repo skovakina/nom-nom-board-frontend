@@ -39,7 +39,7 @@ const SignUpForm = () => {
             navigate('/');
         } catch (error) {
             setMessage(error.message);
-        }
+        } finally { setLoading(false); }
     };
 
     const isFormInvalid = () => {
