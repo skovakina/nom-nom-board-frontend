@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import SignInForm from "./components/SignInForm/SignInForm";
@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 
 function App() {
   const { user } = useContext(UserContext);
+  console.log("App rendering"); //TODO
+  // const navigate = useNavigate();
   return (
     <>
       <NavBar />
@@ -24,6 +26,7 @@ function App() {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route
           path="/settings"
           element={user ? <Settings /> : <Navigate to="/sign-in" />}
