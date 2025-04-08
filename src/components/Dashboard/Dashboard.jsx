@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { index } from '../../services/userService';
+import DashboardNavBar from '../DashboardNavBar/DashboardNavBar';
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -19,19 +20,22 @@ const Dashboard = () => {
   }, [user]);
 
   return (
-    <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
-      <ul>
-        {
-          users.map(user => (
-            <li key={user._id}>{user.username}</li>
-          ))
-        }
-      </ul>
-    </main>
+    <>
+      <main>
+        <DashboardNavBar />
+        <h1>Welcome, {user.username}</h1>
+        <p>
+          This is the dashboard page where you can see a list of all the users.
+        </p>
+        <ul>
+          {
+            users.map(user => (
+              <li key={user._id}>{user.username}</li>
+            ))
+          }
+        </ul>
+      </main>
+    </>
   );
 };
 
