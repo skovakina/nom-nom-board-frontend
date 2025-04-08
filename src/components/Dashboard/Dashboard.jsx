@@ -1,56 +1,74 @@
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import MealCard from "../MealCard/MealCard";
 import Column from "./Column";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
 
-//add menu cards
 const DEFAULT_CARDS = [
-  { title: "Baked Potato", id: "1", column: "backlog" },
-  { title: "Italian Pizza", id: "2", column: "backlog" },
-  { title: "Steak", id: "3", column: "backlog" },
-  { title: "Spaghetti", id: "4", column: "backlog" },
-  { title: "Baked Potato", id: "5", column: "backlog" },
-  { title: "Italian Pizza", id: "6", column: "backlog" },
+  {
+    title: "Baked Potato",
+    note: " with cheese and bacon",
+    id: "1",
+    column: "fridge",
+    mealType: "breakfast",
+  },
+  {
+    title: "Italian Pasta",
+    note: " with marinara sauce",
+    id: "2",
+    column: "fridge",
+    mealType: "breakfast",
+  },
+  {
+    title: "Spaghetti",
+    note: " with marinara sauce",
+    id: "3",
+    column: "fridge",
+    mealType: "lunch",
+  },
+  {
+    title: "Salad",
+    note: " with tomato and lettuce",
+    id: "4",
+    column: "fridge",
+    mealType: "lunch",
+  },
 ];
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
   const [cards, setCards] = useState(DEFAULT_CARDS);
 
+  function handleAddDay() {
+    //TODO: create new column
+    console.log("add day");
+  }
+
   return (
     <>
       <h1>Dashboard</h1>
       <p>Welcome, {user.username}!</p>
-      <main className="h-screen w-full bg-neutral-900 text-neutral-50">
-        <div className="flex h-full w-full gap-3 overflow-scroll p-12">
+      <main className="h-screen w-full">
+        <div className="flex h-full w-full gap-3 overflow-scroll p-2 rounded-xl bg-neutral-100">
           <Column
-            title="Backlog"
-            column="backlog"
-            headingColor="text-neutral-500"
+            title="Fridge"
+            column="fridge"
             cards={cards}
             setCards={setCards}
           />
           <Column
-            title="TODO"
-            column="todo"
-            headingColor="text-yellow-200"
+            title="Today"
+            column="today"
             cards={cards}
             setCards={setCards}
           />
-          <Column
-            title="In progress"
-            column="doing"
-            headingColor="text-blue-200"
-            cards={cards}
-            setCards={setCards}
-          />
-          <Column
-            title="Complete"
-            column="done"
-            headingColor="text-emerald-200"
-            cards={cards}
-            setCards={setCards}
-          />
+          <Button
+            onClick={handleAddDay}
+            className="w-full !justify-start w-56 shrink-0"
+          >
+            <Plus />
+            Add Day
+          </Button>
         </div>
       </main>
     </>
