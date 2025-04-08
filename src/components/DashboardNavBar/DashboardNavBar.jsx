@@ -16,7 +16,7 @@ const DashboardNavBar = () => {
 
         <nav className={`${user? "bg-[#E6E6E6]" : "bg-[#FFFFFF]"} top-0 p-4 w-[90%] mx-auto rounded-lg m-4`}>
             <ul className="flex justify-between items-center w-full">
-                <li className={`absolute left-1/2 transform -translate-x-1/2 ${!user ? "text-center" : "text-left"}`}>
+                <li className={`${!user ? "absolute left-1/2 transform -translate-x-1/2 text-center" : "text-left"}`}>
                     🍕 NomNomBoard
                 </li>
 
@@ -35,7 +35,7 @@ const DashboardNavBar = () => {
                                 <Button variant="outline"><Link to="/sign-up">Sign Up</Link></Button>
                             </li>
                             <li>
-                                <Button><Link to="/sign-in">Log In</Link></Button>
+                                <Button><Link to="/sign-in">Sign In</Link></Button>
                             </li>
                         </>
                     )}
