@@ -78,6 +78,7 @@ const SignUpForm = () => {
                                         value={username}
                                         onChange={handleChange}
                                         name="username"
+                                        placeholder="username"
                                         required
                                     />
                                 </div>
@@ -88,7 +89,7 @@ const SignUpForm = () => {
                                         id="email"
                                         name="email"
                                         value={email}
-                                        placeholder="example@email.com"
+                                        placeholder="name@example.com"
                                         onChange={handleChange}
                                         required
                                     />
