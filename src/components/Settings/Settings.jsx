@@ -28,7 +28,8 @@ const Settings = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('/api/users/profile', {
+            const backendUrl = import.meta.env.VITE_BACK_END_SERVER_URL;
+            const response = await fetch(`${backendUrl}/users/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
