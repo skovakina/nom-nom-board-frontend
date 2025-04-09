@@ -29,7 +29,7 @@ const Settings = () => {
         try {
             const token = localStorage.getItem('token');
             const backendUrl = import.meta.env.VITE_BACK_END_SERVER_URL;
-            const response = await fetch(`${backendUrl}/users/profile`, {
+            const response = await fetch(`${backendUrl}/users/update`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
