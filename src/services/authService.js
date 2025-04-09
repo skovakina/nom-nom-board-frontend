@@ -12,10 +12,12 @@ const signUp = async (formData) => {
       body: JSON.stringify(formData),
     });
 
-    const data = await res.json();
+    const data = await res.json(); 
 
-    if (data.error) {
-      throw new Error(data.error);
+    if (!res.ok) {
+      console.error("Error data:", data); 
+      throw new Error( data?.err || "Something went wrong"); 
+      
     }
 
     if (data.token) {
@@ -25,10 +27,12 @@ const signUp = async (formData) => {
 
     throw new Error("Invalid response from server");
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    console.error("Error occurred:", error);
+    throw error;
   }
 };
+
+
 
 const signIn = async (formData) => {
   try {

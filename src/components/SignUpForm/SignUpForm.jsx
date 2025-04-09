@@ -38,14 +38,17 @@ const SignUpForm = () => {
             setUser(newUser);
             navigate('/');
         } catch (error) {
-            setMessage(error.message);
-        } finally { setLoading(false); }
+            let customMessage = error?.message || "Something went wrong. Please try again.";
+
+            setMessage(customMessage);
+          } finally { setLoading(false); }
     };
 
     const isFormInvalid = () => {
         return !(username && email && password && password === passwordConf);
     }
 
+    const passwordMismatchMessage = password !== passwordConf ? "Passwords must match" : "";
 
     return (
         <AuthLayout>
@@ -75,6 +78,7 @@ const SignUpForm = () => {
                                         value={username}
                                         onChange={handleChange}
                                         name="username"
+                                        placeholder="username"
                                         required
                                     />
                                 </div>
@@ -85,7 +89,7 @@ const SignUpForm = () => {
                                         id="email"
                                         name="email"
                                         value={email}
-                                        placeholder="example@email.com"
+                                        placeholder="name@example.com"
                                         onChange={handleChange}
                                         required
                                     />
@@ -111,9 +115,18 @@ const SignUpForm = () => {
                                         onChange={handleChange}
                                         required
                                     />
+                                    {passwordMismatchMessage && (
+                                        <p className="text-red-500 text-sm">
+                                            {passwordMismatchMessage}
+                                        </p>
+                                    )}
+                                    {message && (
+                                        <p className="text-sm text-red-500 text-center">{message}</p>
+                                    )}
+
                                 </div>
                                 <div>
-                                    <Button type="submit" className="w-full">
+                                    <Button type="submit" className="w-full" disabled={isFormInvalid()}>
                                         {loading ? "Creating Account..." : "Create Account"}
                                     </Button>
                                 </div>
