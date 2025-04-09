@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import DashboardNavBar from '../DashboardNavBar/DashboardNavBar';
+import { Link } from "react-router-dom";
 
 const Landing = () => {
     return (
@@ -32,11 +33,13 @@ const Landing = () => {
                         makes planning, prepping, and reflecting on your meals fun and visual.
                     </p>
 
-                    <Button
-                        className="py-2 px-4 gap-[8px] rounded-[6px] border border-black bg-black text-white font-poppins font-medium mb-4"
-                    >
-                        Get Started - Free forever →
-                    </Button>
+                    <Link to="/sign-up">
+                      <Button
+                          className="py-2 px-4 gap-[8px] rounded-[6px] border border-black bg-black text-white font-poppins font-medium mb-4"
+                      >
+                          Get Started - Free forever →
+                      </Button>
+                    </Link>
 
                     <p
                         className="text-[12px] md:text-[14px] font-poppins font-medium leading-none text-gray-500 text-center w-full md:w-[216px] h-auto md:h-[42px]"
