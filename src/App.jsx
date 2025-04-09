@@ -5,6 +5,7 @@ import SignUpForm from "./components/SignUpForm/SignUpForm";
 import SignInForm from "./components/SignInForm/SignInForm";
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Settings from "./components/Settings/Settings";
 import { UserContext } from "./contexts/UserContext";
 
 // this is how you import shadcn ui https://ui.shadcn.com/docs/components/button
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/settings" element={<Settings />}/>
       </Routes>
     </>
   );
