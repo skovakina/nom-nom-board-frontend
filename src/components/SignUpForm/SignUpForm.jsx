@@ -126,7 +126,7 @@ const SignUpForm = () => {
 
                                 </div>
                                 <div>
-                                    <Button className="w-full" disabled={isFormInvalid()}>
+                                    <Button type="submit" className="w-full" disabled={isFormInvalid()}>
                                         {loading ? "Creating Account..." : "Create Account"}
                                     </Button>
                                 </div>
