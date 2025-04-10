@@ -4,6 +4,9 @@ import { ShareDialog } from "@/components/ui/share-dialog";
 import { Link } from "react-router";
 
 const Landing = () => {
+    const handleDialogConfirm = () => {
+        console.log("User acknowledged the share button");
+    }
     return (
         <>
 
@@ -17,7 +20,12 @@ const Landing = () => {
                     <div
                         className="flex items-center justify-center py-2 px-4 gap-[10px] rounded-md bg-gray-50 text-gray-600 text-sm font-poppins font-medium mb-4"
                     >
-                        <span>✨New - Work in progress</span>
+                        <ShareDialog
+                            triggerText="✨ New - Share with a friend"
+                            title="Work in Progress"
+                            description="This feature is still being built! Stay tuned for updates."
+                            onConfirm={handleDialogConfirm}
+                        />
                     </div>
 
           {/* Meal Management for Busy Bee title */}
@@ -36,7 +44,7 @@ const Landing = () => {
                       >
                         <Link to="/sign-up">
                           Get Started - Free forever →
-                          </Link>
+                        </Link>
                       </Button>
 
           <p className="text-[12px] md:text-[14px] font-poppins font-medium leading-none text-gray-500 text-center w-full md:w-[216px] h-auto md:h-[42px]">
