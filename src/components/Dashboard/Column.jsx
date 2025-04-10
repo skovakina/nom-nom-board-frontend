@@ -11,6 +11,7 @@ export default function Column({
   mealSections = ["unassigned"],
 }) {
   const [active, setActive] = useState(false);
+  const [highlightedMealType, setHighlightedMealType] = useState(null);
 
   function handleDelete(id) {
     //TODO: delete meal
@@ -78,7 +79,10 @@ export default function Column({
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    highlightIndicator(e);
+    const mealType = e.target?.dataset?.mealtype;
+    if (mealType) {
+      setHighlightedMealType(mealType);
+    }
 
     setActive(true);
   };
@@ -89,16 +93,6 @@ export default function Column({
     indicators.forEach((i) => {
       i.style.opacity = "0";
     });
-  };
-
-  const highlightIndicator = (e) => {
-    const indicators = getIndicators();
-
-    clearHighlights(indicators);
-
-    const el = getNearestIndicator(e, indicators);
-
-    el.element.style.opacity = "1";
   };
 
   const getNearestIndicator = (e, indicators) => {
@@ -149,7 +143,11 @@ export default function Column({
   }
 
   return (
-    <div className="flex flex-col">
+    <div
+      className={`flex flex-col p-2 ${
+        active ? "bg-neutral-200/50" : "bg-neutral-200/0"
+      }`}
+    >
       <div className="w-56 shrink-0">
         <div className="mb-3 flex items-center justify-between">
           <h3 className={`font-medium`}>{title}</h3>
@@ -171,9 +169,7 @@ export default function Column({
         onDrop={handleDragEnd}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`h-full w-full transition-colors flex flex-col gap-2 ${
-          active ? "bg-neutral-300/50" : "bg-neutral-300/0"
-        }`}
+        className="h-full w-full transition-colors flex flex-col gap-2"
       >
         {mealSections.map((mealType) => {
           const cardsForMeal = filteredCards.filter(
@@ -182,22 +178,29 @@ export default function Column({
 
           return (
             <div key={mealType} className="mb-4">
-              <h4 className="text-sm font-semibold capitalize text-neutral-300 mb-1">
-                {mealType}
-              </h4>
-              {/* <div className="p-2 rounded-md" style={getBorderColor("#000")}> */}
+              {cardsForMeal.length > 0 && (
+                <h4 className="text-sm font-semibold capitalize text-neutral-300 mb-1">
+                  {mealType}
+                </h4>
+              )}
+
               <div
                 data-mealtype={mealType}
                 key={mealType}
                 onDrop={handleDragEnd}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                className={`min-h-24 rounded-md transition-all  ${
+                className={`min-h-24 flex flex-col gap-2 p-1 rounded-2xl transition-all relative  ${
                   active
                     ? "border-emerald-600 bg-emerald-500/10 text-emerald-500"
                     : "border-neutral-600 bg-neutral-500/10 text-neutral-400"
                 }`}
               >
+                {mealType !== "unassigned" && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 text-xl font-bold uppercase whitespace-nowrap select-none">
+                    {mealType}
+                  </div>
+                )}
                 {cardsForMeal.map((c) => (
                   <MealCard
                     key={c.id}
@@ -206,9 +209,7 @@ export default function Column({
                     handleDragStart={handleDragStart}
                   />
                 ))}
-                <DropIndicator beforeId={null} column={column} />
               </div>
-              {/* </div> */}
             </div>
           );
         })}
@@ -220,11 +221,5 @@ export default function Column({
 }
 
 const DropIndicator = ({ beforeId, column }) => {
-  return (
-    <div
-      data-before={beforeId || "-1"}
-      data-column={column}
-      className="h-2 w-full bg-violet-400 opacity-0"
-    />
-  );
+  return <div data-before={beforeId || "-1"} data-column={column} />;
 };
