@@ -157,7 +157,7 @@ export default function Column({
           <Button
             onClick={handleAddMeal}
             variant="outline"
-            className="w-full !justify-start"
+            className="w-full !justify-start mb-2"
           >
             <Plus />
             Add Item
@@ -178,8 +178,8 @@ export default function Column({
 
           return (
             <div key={mealType} className="mb-4">
-              {cardsForMeal.length > 0 && (
-                <h4 className="text-sm font-semibold capitalize text-neutral-300 mb-1">
+              {cardsForMeal.length > 0 && mealType !== "unassigned" && (
+                <h4 className="text-sm font-semibold capitalize text-neutral-500 mb-1">
                   {mealType}
                 </h4>
               )}
@@ -197,7 +197,7 @@ export default function Column({
                 }`}
               >
                 {mealType !== "unassigned" && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 text-xl font-bold uppercase whitespace-nowrap select-none">
+                  <div className="absolute text-white inset-0 flex items-center justify-center pointer-events-none text-2xl font-bold capitalize whitespace-nowrap select-none">
                     {mealType}
                   </div>
                 )}

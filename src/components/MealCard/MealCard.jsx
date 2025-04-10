@@ -21,7 +21,7 @@ export default function MealCard({ handleDragStart, onDelete, ...props }) {
       draggable="true"
       onDragStart={(e) => handleDragStart(e, { ...props })}
     >
-      <Card className="relative group">
+      <Card className="relative group cursor-pointer">
         <Button
           variant="ghost"
           size="icon"
