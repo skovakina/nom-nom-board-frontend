@@ -57,14 +57,10 @@ const SignUpForm = () => {
                 <Card className="overflow-hidden">
                     <CardContent className="grid p-0 md:grid-cols-2">
                         <div className="relative hidden bg-muted md:block">
-                            <img
-                                src="/placeholder.svg"
-                                alt="Image"
-                                className="absolute inset-0 w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                            />
-                            <div className="relative z-10 mt-4"> {/* Added margin-top to separate carousel */}
+                            
+                            <div className="relative z-10 mt-4"> 
                                 <CarouselComponent
-                                    className="basis-1/3"
+                                    
                                 />
                             </div>
                         </div>

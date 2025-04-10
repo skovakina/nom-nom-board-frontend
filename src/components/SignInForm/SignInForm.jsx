@@ -94,12 +94,7 @@ const SignInForm = () => {
                                 </div>
                             </div>
                         </form>
-                        <div className="relative hidden bg-muted md:block">
-                            <img
-                                src="/placeholder.svg"
-                                alt="Image"
-                                className="absolute inset-0 w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                            />
+                        <div className="relative bg-muted md:block">
                             <div className="relative z-10 mt-4"> {/* Added margin-top to separate carousel */}
                                 <CarouselComponent
                                     className="basis-1/3"
