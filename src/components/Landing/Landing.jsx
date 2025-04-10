@@ -22,8 +22,8 @@ const Landing = () => {
                     >
                         <ShareDialog
                             triggerText="✨ New - Share with a friend"
-                            title="Work in Progress"
-                            description="This feature is still being built! Stay tuned for updates."
+                            title="Share Nom Nom Board with a friend"
+                            description="Do it with a friend! Stay tuned for more updates."
                             onConfirm={handleDialogConfirm}
                         />
                     </div>
