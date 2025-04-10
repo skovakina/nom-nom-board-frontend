@@ -14,7 +14,7 @@ const CarouselComponent = () => {
         { review: "Efficient and Easy to Use!", user: "John D." },
         { review: "Perfect for Healthy Eating!", user: "Jane S." },
         { review: "Convenient and Time-Saving!", user: "Alice J." },
-        { review: "My Go-To App for Meal Planning!", user: "Bob." },
+        { review: "My Go-To App for Meal Planning!", user: "Bob F." },
         { review: "Meal Planning Made Fun!", user: "Charlie K." },
     ];
 
@@ -22,7 +22,7 @@ const CarouselComponent = () => {
 
         <Carousel
             opts={{
-                align: "start", // Add this here
+                align: "start", 
             }}
             plugins={[
                 Autoplay({
