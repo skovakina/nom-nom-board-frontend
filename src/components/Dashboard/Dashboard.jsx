@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Column from "./Column";
 import Header from "./Header";
@@ -9,6 +10,7 @@ import {
   deleteDay,
   updateDayMeal,
 } from "../../services/days";
+import DashboardNavBar from '../DashboardNavBar/DashboardNavBar';
 
 const DEFAULT_CARDS = [
   {
@@ -114,6 +116,7 @@ const Dashboard = () => {
 
   return (
     <main className="flex flex-col h-screen mr-10 ml-10">
+     <DashboardNavBar />
       <Header />
       <div className="h-screen  ">
         <div className="p-2 flex  gap-3 overflow-scroll rounded-xl bg-neutral-100 ">
