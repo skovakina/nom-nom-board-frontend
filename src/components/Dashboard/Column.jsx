@@ -11,7 +11,6 @@ export default function Column({
   mealSections = ["unassigned"],
 }) {
   const [active, setActive] = useState(false);
-  const [highlightedMealType, setHighlightedMealType] = useState(null);
 
   function handleEdit(id) {
     //TODO: open popup to edit/delete meal
@@ -79,10 +78,6 @@ export default function Column({
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    const mealType = e.target?.dataset?.mealtype;
-    if (mealType) {
-      setHighlightedMealType(mealType);
-    }
 
     setActive(true);
   };
