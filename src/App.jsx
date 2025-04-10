@@ -8,8 +8,6 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Settings from "./components/Settings/Settings";
 import { UserContext } from "./contexts/UserContext";
 
-// this is how you import shadcn ui https://ui.shadcn.com/docs/components/button
-// is you want to use shadcn components, you need to follow the docs to import them
 import { Button } from "@/components/ui/button";
 
 const ProtectedRoute = ({ user, children }) => {
@@ -32,14 +30,14 @@ function App() {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
-        {/* <Route
+        <Route
           path="/settings"
           element={
             <ProtectedRoute user={user}>
               <Settings />
             </ProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
     </>
   );
