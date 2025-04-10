@@ -3,7 +3,12 @@ import Column from "./Column";
 import Header from "./Header";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import { getDays, createDay, deleteDay } from "../../services/days";
+import {
+  getDays,
+  createDay,
+  deleteDay,
+  updateDayMeal,
+} from "../../services/days";
 
 const DEFAULT_CARDS = [
   {

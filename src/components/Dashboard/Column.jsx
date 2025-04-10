@@ -3,6 +3,15 @@ import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { updateDayMeal } from "../../services/days";
+
+const mealTypeMap = {
+  breakfast: "breakfast",
+  lunch: "lunch",
+  dinner: "dinner",
+  "first snack": "firstSnack",
+  "second snack": "secondSnack",
+};
 
 export default function Column({
   title,
@@ -28,7 +37,7 @@ export default function Column({
     e.dataTransfer.setData("card", JSON.stringify(card));
   };
 
-  const handleDragEnd = (e) => {
+  async function handleDragEnd(e) {
     const raw = e.dataTransfer.getData("card");
     const draggedCard = JSON.parse(raw);
     const cardId = draggedCard.id;
@@ -74,9 +83,17 @@ export default function Column({
       }
 
       setCards(copy);
-      console.log("card moved", cards);
+      if (column !== "fridge" && mealType !== "unassigned") {
+        try {
+          // todo: create meals cards
+          // await updateDayMeal(column, mealTypeMap[mealType], cardId);
+          console.log("Meal saved to day", column, mealType, cardId);
+        } catch (error) {
+          console.error("Failed to update day:", error);
+        }
+      }
     }
-  };
+  }
 
   const handleDragOver = (e) => {
     e.preventDefault();
