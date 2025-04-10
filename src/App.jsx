@@ -12,6 +12,12 @@ import { UserContext } from "./contexts/UserContext";
 // is you want to use shadcn components, you need to follow the docs to import them
 import { Button } from "@/components/ui/button";
 
+const ProtectedRoute = ({ user, children }) => {
+  if (!user) {
+    return <Navigate to="/sign-in" replace />;
+  }
+  return children;
+};
 function App() {
   const { user } = useContext(UserContext);
   return (
@@ -24,7 +30,14 @@ function App() {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/settings" element={<Settings />}/>
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute user={user}>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
