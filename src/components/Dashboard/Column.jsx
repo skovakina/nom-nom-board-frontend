@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MealCard from "../MealCard/MealCard";
+import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 
@@ -13,8 +13,8 @@ export default function Column({
   const [active, setActive] = useState(false);
   const [highlightedMealType, setHighlightedMealType] = useState(null);
 
-  function handleDelete(id) {
-    //TODO: delete meal
+  function handleEdit(id) {
+    //TODO: open popup to edit/delete meal
     console.log(id);
   }
 
@@ -130,18 +130,6 @@ export default function Column({
 
   const filteredCards = cards.filter((c) => c.column === column);
 
-  function getBorderColor(color = "#ccc") {
-    const encodedColor = color.replace("#", "%23");
-    return {
-      height: "120px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='12' ry='12' stroke='${encodedColor}' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='30' stroke-linecap='square'/%3e%3c/svg%3e")`,
-      borderRadius: "12px",
-    };
-  }
-
   return (
     <div
       className={`flex flex-col p-2 ${
@@ -205,7 +193,7 @@ export default function Column({
                   <MealCard
                     key={c.id}
                     {...c}
-                    onDelete={handleDelete}
+                    onEdit={handleEdit}
                     handleDragStart={handleDragStart}
                   />
                 ))}

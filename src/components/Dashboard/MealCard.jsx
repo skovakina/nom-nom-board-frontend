@@ -5,12 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Trash2 } from "lucide-react";
+import { SquarePen } from "lucide-react";
 import { Button } from "../ui/button";
-import { Badge } from "@/components/ui/badge";
+// eslint-disable-next-line
 import { motion } from "framer-motion";
 
-export default function MealCard({ handleDragStart, onDelete, ...props }) {
+export default function MealCard({ handleDragStart, onEdit, ...props }) {
   const { title, note, id } = props;
   //add delete button that appear on hover of card
 
@@ -25,10 +25,10 @@ export default function MealCard({ handleDragStart, onDelete, ...props }) {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => onDelete(id)}
+          onClick={() => onEdit(id)}
           className="cursor-pointer absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity "
         >
-          <Trash2 className="h-4 w-4" />
+          <SquarePen className="h-4 w-4" />
         </Button>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
