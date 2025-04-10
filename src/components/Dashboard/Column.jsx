@@ -2,6 +2,7 @@ import { useState } from "react";
 import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 export default function Column({
   title,
@@ -9,6 +10,7 @@ export default function Column({
   column,
   setCards,
   mealSections = ["unassigned"],
+  onDelete,
 }) {
   const [active, setActive] = useState(false);
 
@@ -134,7 +136,9 @@ export default function Column({
       <div className="w-56 shrink-0">
         <div className="mb-3 flex items-center justify-between">
           <h3 className={`font-medium`}>{title}</h3>
-          <span className="rounded text-sm">{filteredCards.length}</span>
+          <Button variant="ghost" size="icon" onClick={() => onDelete(column)}>
+            <Trash2 className="h-4 w-4" />
+          </Button>
         </div>
         {title === "Fridge" && (
           <Button

@@ -3,6 +3,7 @@ import Column from "./Column";
 import Header from "./Header";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
+import { getDays, createDay, deleteDay } from "../../services/days";
 
 const DEFAULT_CARDS = [
   {
@@ -45,49 +46,21 @@ const MEAL_SECTIONS = [
 
 const Dashboard = () => {
   const [cards, setCards] = useState(DEFAULT_CARDS);
-  const [days, setDays] = useState([
-    {
-      _id: "local-day-0", // placeholder before DB saves
-      date: new Date(), // Date object, matches schema
-      column: "day-0", // UI reference
-      breakfast: null,
-      lunch: null,
-      dinner: null,
-      firstSnack: null,
-      secondSnack: null,
-    },
-  ]);
-
+  const [days, setDays] = useState([]);
   useEffect(() => {
     async function fetchDays() {
-      // TODO: fetch days from your API here
-      // Example structure after API response:
-      const response = await fakeFetchDays(); // replace later
-      setDays(response);
+      const result = await getDays();
+      setDays(result);
     }
 
     fetchDays();
   }, []);
 
-  async function fakeFetchDays() {
-    const today = new Date();
-    return [
-      {
-        _id: "server-day-0",
-        date: today,
-        column: "day-0",
-        breakfast: null,
-        lunch: null,
-        dinner: null,
-        firstSnack: null,
-        secondSnack: null,
-      },
-    ];
-  }
-  const getTitleFromDate = (date, index) => {
+  const getTitleFromDate = (date) => {
     const today = new Date();
     const isToday = new Date(date).toDateString() === today.toDateString();
-    const tomorrow = new Date(today);
+
+    const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
     const isTomorrow =
       new Date(date).toDateString() === tomorrow.toDateString();
@@ -102,16 +75,14 @@ const Dashboard = () => {
     });
   };
 
-  function handleAddDay() {
+  async function handleAddDay() {
     const nextIndex = days.length;
     const today = new Date();
     const newDate = new Date(today);
     newDate.setDate(today.getDate() + nextIndex);
 
     const newDay = {
-      _id: `local-day-${nextIndex}`,
-      date: newDate,
-      column: `day-${nextIndex}`,
+      date: newDate.toISOString(),
       breakfast: null,
       lunch: null,
       dinner: null,
@@ -119,32 +90,23 @@ const Dashboard = () => {
       secondSnack: null,
     };
 
-    setDays((prev) => [...prev, newDay]);
+    await createDay(newDate);
 
-    // TODO: Send newDay to your API to persist in DB
+    setDays((prev) => [
+      ...prev,
+      {
+        ...newDay,
+        _id: `day-${nextIndex}`,
+      },
+    ]);
   }
 
-  function handleAddDay() {
-    const nextIndex = days.length;
-    const today = new Date();
-    const newDate = new Date(today);
-    newDate.setDate(today.getDate() + nextIndex);
-
-    const newDay = {
-      _id: `local-day-${nextIndex}`, // temporary ID before DB save
-      date: newDate,
-      column: `day-${nextIndex}`,
-      breakfast: null,
-      lunch: null,
-      dinner: null,
-      firstSnack: null,
-      secondSnack: null,
-    };
-
-    setDays((prev) => [...prev, newDay]);
-
-    // TODO: send this to your backend
+  async function handleDeleteDay(id) {
+    console.log(id);
+    await deleteDay(id);
+    setDays((prev) => prev.filter((day) => day._id !== id));
   }
+
   return (
     <main className="flex flex-col h-screen mr-10 ml-10">
       <Header />
@@ -159,12 +121,13 @@ const Dashboard = () => {
           />
           {days.map((day) => (
             <Column
-              key={day.column}
-              title={day.title}
-              column={day.column}
+              key={day._id}
+              title={getTitleFromDate(day.date)}
+              column={day._id}
               cards={cards}
               setCards={setCards}
               mealSections={MEAL_SECTIONS}
+              onDelete={handleDeleteDay}
             />
           ))}
           <Button
