@@ -10,28 +10,28 @@ const DEFAULT_CARDS = [
     note: " with cheese and bacon",
     id: "1",
     column: "fridge",
-    mealType: "breakfast",
+    mealType: "unassigned",
   },
   {
     title: "Italian Pasta",
     note: " with marinara sauce",
     id: "2",
     column: "fridge",
-    mealType: "breakfast",
+    mealType: "unassigned",
   },
   {
     title: "Spaghetti",
     note: " with marinara sauce",
     id: "3",
     column: "fridge",
-    mealType: "lunch",
+    mealType: "unassigned",
   },
   {
     title: "Salad",
     note: " with tomato and lettuce",
     id: "4",
     column: "fridge",
-    mealType: "lunch",
+    mealType: "unassigned",
   },
 ];
 
@@ -47,18 +47,26 @@ const Dashboard = () => {
     <>
       <Header />
       <main className="h-screen w-full">
-        <div className="flex h-full w-full gap-3 overflow-scroll p-2 rounded-xl bg-neutral-100">
+        <div className="p-2 flex h-full w-full gap-3 overflow-scroll rounded-xl bg-neutral-100 ">
           <Column
             title="Fridge"
             column="fridge"
             cards={cards}
             setCards={setCards}
+            mealSections={["unassigned"]}
           />
           <Column
             title="Today"
             column="today"
             cards={cards}
             setCards={setCards}
+            mealSections={[
+              "breakfast",
+              "first snack",
+              "lunch",
+              "second snack",
+              "dinner",
+            ]}
           />
           <Button
             onClick={handleAddDay}

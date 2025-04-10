@@ -3,7 +3,13 @@ import MealCard from "../MealCard/MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 
-export default function Column({ title, cards, column, setCards }) {
+export default function Column({
+  title,
+  cards,
+  column,
+  setCards,
+  mealSections = ["unassigned"],
+}) {
   const [active, setActive] = useState(false);
 
   function handleDelete(id) {
@@ -33,8 +39,16 @@ export default function Column({ title, cards, column, setCards }) {
 
     const before = element.dataset.before || "-1";
 
-    const mealType = e.target?.dataset?.mealtype;
-    if (!mealType) return;
+    let mealType = e.target?.dataset?.mealtype;
+
+    if (!mealType) {
+      if (column === "fridge") {
+        mealType = "unassigned";
+      } else {
+        return;
+      }
+    }
+
     draggedCard.mealType = mealType;
 
     if (before !== cardId) {
@@ -161,7 +175,7 @@ export default function Column({ title, cards, column, setCards }) {
           active ? "bg-neutral-300/50" : "bg-neutral-300/0"
         }`}
       >
-        {["breakfast", "lunch", "dinner"].map((mealType) => {
+        {mealSections.map((mealType) => {
           const cardsForMeal = filteredCards.filter(
             (c) => c.mealType === mealType
           );
