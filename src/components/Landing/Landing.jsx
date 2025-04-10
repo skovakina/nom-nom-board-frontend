@@ -4,19 +4,14 @@ import { ShareDialog } from "@/components/ui/share-dialog";
 import { Link } from "react-router";
 
 const Landing = () => {
-    const handleDialogConfirm = () => {
-        console.log("User acknowledged the share button");
-    }
     return (
         <>
 
             <main className="min-h-screen bg-gradient-to-b from-orange-200 via-yellow-100 to-white flex flex-col items-center">
                 <DashboardNavBar />
-                {/* Container for the 5 elements, centered and positioned in the top half */}
                 <div
                     className="w-full md:w-[696px] h-auto md:h-[459px] mt-[50px] md:mt-[100px] flex flex-col items-center justify-center py-8"
                 >
-                    {/* New - Work in progress button */}
                     <div
                         className="flex items-center justify-center py-2 px-4 gap-[10px] rounded-md bg-gray-50 text-gray-600 text-sm font-poppins font-medium mb-4"
                     >
@@ -24,11 +19,9 @@ const Landing = () => {
                             triggerText="✨ New - Share with a friend"
                             title="Share Nom Nom Board with a friend"
                             description="Do it with a friend! Stay tuned for more updates."
-                            onConfirm={handleDialogConfirm}
                         />
                     </div>
 
-          {/* Meal Management for Busy Bee title */}
           <h1 className="text-[32px] sm:text-[40px] md:text-[56px] font-poppins font-semibold leading-none text-black text-center w-full md:w-[641px] h-auto md:h-[168px] mb-4">
             Meal Management for Busy Bee
           </h1>
@@ -39,13 +32,13 @@ const Landing = () => {
               and visual.
             </p>
 
-                      <Button
-                          className="py-2 px-4 gap-[8px] rounded-[6px] border border-black bg-black text-white font-poppins font-medium mb-4"
-                      >
-                        <Link to="/sign-up">
-                          Get Started - Free forever →
-                        </Link>
-                      </Button>
+                <Button
+                    className="py-2 px-4 gap-[8px] rounded-[6px] border border-black bg-black text-white font-poppins font-medium mb-4"
+                >
+                <Link to="/sign-up">
+                    Get Started - Free forever →
+                </Link>
+                </Button>
 
             <p className="text-[12px] md:text-[14px] font-poppins font-medium leading-none text-gray-500 text-center w-full md:w-[216px] h-auto md:h-[42px]">
               🔥Yes, it’s free forever. No credit card required
@@ -59,13 +52,11 @@ const Landing = () => {
             </div>
           </div>
 
-          {/* Footer */}
           <footer className="mt-auto text-gray-500 text-sm text-center w-full py-4">
             With love, NomNomTeam © 2025
           </footer>
         </main>
-      </div>
-    </div>
+    </>
   );
 };
 
