@@ -39,7 +39,11 @@ const Landing = () => {
                       >
                           Get Started - Free forever →
                       </Button>
-                    </Link>
+<Button >
+  <Link to="/sign-up">
+    Get Started – Free forever →
+  </Link>
+</Button>
 
                     <p
                         className="text-[12px] md:text-[14px] font-poppins font-medium leading-none text-gray-500 text-center w-full md:w-[216px] h-auto md:h-[42px]"
