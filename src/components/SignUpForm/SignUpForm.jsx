@@ -7,6 +7,7 @@ import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import AuthLayout from "../layouts/AuthLayout";
+import CarouselComponent from '../Carousel/Carousel';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const SignUpForm = () => {
             let customMessage = error?.message || "Something went wrong. Please try again.";
 
             setMessage(customMessage);
-          } finally { setLoading(false); }
+        } finally { setLoading(false); }
     };
 
     const isFormInvalid = () => {
@@ -59,9 +60,15 @@ const SignUpForm = () => {
                             <img
                                 src="/placeholder.svg"
                                 alt="Image"
-                                className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                                className="absolute inset-0 w-full object-cover dark:brightness-[0.2] dark:grayscale"
                             />
+                            <div className="relative z-10 mt-4"> {/* Added margin-top to separate carousel */}
+                                <CarouselComponent
+                                    className="basis-1/3"
+                                />
+                            </div>
                         </div>
+
                         <form className="p-6 md:p-8 md:col-start-2" onSubmit={handleSubmit}>
                             <div className="flex flex-col gap-6">
                                 <div className="flex flex-col items-center text-center">
@@ -142,7 +149,9 @@ const SignUpForm = () => {
 
                     </CardContent>
                 </Card>
+
             </div>
+
         </AuthLayout>
     );
 };

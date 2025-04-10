@@ -7,6 +7,7 @@ import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import AuthLayout from "../layouts/AuthLayout";
+import CarouselComponent from "../Carousel/Carousel";
 
 const SignInForm = () => {
     const navigate = useNavigate();
@@ -97,9 +98,16 @@ const SignInForm = () => {
                             <img
                                 src="/placeholder.svg"
                                 alt="Image"
-                                className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                                className="absolute inset-0 w-full object-cover dark:brightness-[0.2] dark:grayscale"
                             />
+                            <div className="relative z-10 mt-4"> {/* Added margin-top to separate carousel */}
+                                <CarouselComponent
+                                    className="basis-1/3"
+                                />
+                            </div>
                         </div>
+                        
+                            
                     </CardContent>
                 </Card>
             </div>
