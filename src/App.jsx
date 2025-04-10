@@ -8,6 +8,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Settings from "./components/Settings/Settings";
 import { UserContext } from "./contexts/UserContext";
 
+// this is how you import shadcn ui https://ui.shadcn.com/docs/components/button
+// is you want to use shadcn components, you need to follow the docs to import them
 import { Button } from "@/components/ui/button";
 
 const ProtectedRoute = ({ user, children }) => {
@@ -18,8 +20,6 @@ const ProtectedRoute = ({ user, children }) => {
 };
 function App() {
   const { user } = useContext(UserContext);
-
-  console.log(user);
   return (
     <>
       <NavBar />
