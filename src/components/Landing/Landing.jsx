@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
 import DashboardNavBar from '../DashboardNavBar/DashboardNavBar';
+import CarouselComponent from "../Carousel/Carousel";
+import { Car } from "lucide-react";
+
 
 const Landing = () => {
     return (
@@ -51,6 +54,9 @@ const Landing = () => {
                     <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-lg">
                         <p className="text-gray-600">Screenshot Placeholder</p>
                     </div>
+                </div>
+                <div className="w-[60%] mt-auto mb-8 flex items-center justify-center" >
+                <CarouselComponent/>
                 </div>
 
                 {/* Footer */}
