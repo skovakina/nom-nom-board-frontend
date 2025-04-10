@@ -33,17 +33,13 @@ const Landing = () => {
                         makes planning, prepping, and reflecting on your meals fun and visual.
                     </p>
 
-                    <Link to="/sign-up">
                       <Button
                           className="py-2 px-4 gap-[8px] rounded-[6px] border border-black bg-black text-white font-poppins font-medium mb-4"
                       >
+                        <Link to="/sign-up">
                           Get Started - Free forever →
+                          </Link>
                       </Button>
-<Button >
-  <Link to="/sign-up">
-    Get Started – Free forever →
-  </Link>
-</Button>
 
                     <p
                         className="text-[12px] md:text-[14px] font-poppins font-medium leading-none text-gray-500 text-center w-full md:w-[216px] h-auto md:h-[42px]"
