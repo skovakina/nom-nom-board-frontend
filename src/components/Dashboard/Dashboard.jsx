@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { useState } from "react";
 import Column from "./Column";
 import Header from "./Header";
 import { Button } from "../ui/button";
@@ -37,7 +36,6 @@ const DEFAULT_CARDS = [
 ];
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
   const [cards, setCards] = useState(DEFAULT_CARDS);
 
   function handleAddDay() {

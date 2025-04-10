@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
 export default function MealCard({ handleDragStart, onDelete, ...props }) {
-  const { title, note, id, column } = props;
+  const { title, note, id } = props;
   //add delete button that appear on hover of card
 
   return (
