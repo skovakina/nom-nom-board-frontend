@@ -47,7 +47,7 @@ const SignInForm = () => {
           <CardContent className="grid p-0 md:grid-cols-2">
             <form className="p-6 md:p-8" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center justify-center mt-10">
                   <h1 className="text-2xl font-bold">Welcome back</h1>
                   <p className="text-balance text-muted-foreground">
                     Enter you credentials to continue
@@ -87,7 +87,7 @@ const SignInForm = () => {
                   {loading ? "Signing in..." : "Sign In"}
                 </Button>
 
-                <div className="text-center text-sm">
+                <div className="text-center text-sm mt-2">
                   Don&apos;t have an account?{" "}
                   <Link to="/sign-up" className="underline underline-offset-4">
                     Sign Up
@@ -95,12 +95,25 @@ const SignInForm = () => {
                 </div>
               </div>
             </form>
-            <div className="relative hidden bg-muted md:block">
+            <div className="relative hidden md:block">
               <img
-                src="/placeholder.svg"
-                alt="Image"
-                className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                src="/images/1.png"
+                alt="A relaxed person doing yoga"
+                className="w-full h-[50vh] object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
               />
+              <div className="p-4">
+                <p className="text-sm text-center mb-3">
+                  "This meal tracker has truly been a game-changer! It took the
+                  hassle of meal planning off my shoulders, so I finally have
+                  time to focus on the things I love."
+                </p>
+                <p className="text-sm font-semibold text-center">
+                  - DestressedUser12
+                </p>
+                <p className="flex justify-center items-center">
+                  <span className="text-yellow-500">★★★★★</span>
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

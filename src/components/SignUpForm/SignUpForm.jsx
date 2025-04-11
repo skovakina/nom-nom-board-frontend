@@ -58,13 +58,25 @@ const SignUpForm = () => {
     <AuthLayout>
       <div className="flex flex-col gap-6">
         <Card className="overflow-hidden">
-          <CardContent className="grid p-0 md:grid-cols-2">
-            <div className="relative hidden bg-muted md:block">
+          <CardContent className="grid p-0 md:grid-cols-2 items-center">
+            <div className="relative hidden md:block mt-10">
               <img
-                src="/placeholder.svg"
-                alt="Image"
-                className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                src="/images/2.png"
+                alt="a person cooking happily"
+                className="w-full h-[50vh] object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
               />
+              <div className="p-4">
+                <p className="text-sm text-center mb-3">
+                  "The meal planner has been a lifesaver! No more last-minute
+                  decisions on what to cook—now I can focus all my energy on
+                  perfecting the cooking itself. It’s made the whole process so
+                  much more enjoyable!"
+                </p>
+                <p className="text-sm font-semibold text-center">- HappyCook</p>
+                <p className="flex justify-center items-center">
+                  <span className="text-yellow-500">★★★★★</span>
+                </p>
+              </div>
             </div>
             <form className="p-6 md:p-8 md:col-start-2" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
