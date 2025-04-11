@@ -42,7 +42,7 @@ const SignInForm = () => {
 
   return (
     <AuthLayout>
-      <div className="flex flex-col gap-6">
+      <div className="min-h-screen flex flex-col gap-6 ">
         <Card className="overflow-hidden">
           <CardContent className="grid p-0 md:grid-cols-2">
             <form className="p-6 md:p-8" onSubmit={handleSubmit}>
@@ -99,7 +99,7 @@ const SignInForm = () => {
               <img
                 src="/images/1.png"
                 alt="A relaxed person doing yoga"
-                className="w-full h-[50vh] object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
+                className="w-full h-auto object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
               />
               <div className="p-4">
                 <p className="text-sm text-center mb-3">
