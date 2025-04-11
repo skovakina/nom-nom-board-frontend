@@ -48,7 +48,11 @@ const Landing = () => {
           <div className="w-full md:w-[696px] h-[50vh] mt-auto mb-8 flex items-center justify-center">
             {/* Replace this with our screenshot later */}
             <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-lg">
-              <p className="text-gray-600">Screenshot Placeholder</p>
+              <img
+                src="/images/dashboard.png"
+                alt="Screenshot of dashboard"
+                className="w-full h-full object-cover rounded-lg"
+              />
             </div>
           </div>
 

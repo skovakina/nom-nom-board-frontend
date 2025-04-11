@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { signIn } from "../../services/authService";
 import { UserContext } from "../../contexts/UserContext";
 import { Button } from "../ui/button";
@@ -89,9 +89,9 @@ const SignInForm = () => {
 
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
-                  <a href="/sign-up" className="underline underline-offset-4">
+                  <Link to="/sign-up" className="underline underline-offset-4">
                     Sign Up
-                  </a>
+                  </Link>
                 </div>
               </div>
             </form>
