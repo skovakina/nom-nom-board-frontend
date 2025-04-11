@@ -122,7 +122,6 @@ const Dashboard = () => {
       setCards((prev) =>
         prev.map((m) => (m.id === selectedMeal.id ? updated : m))
       );
-      console.log("Updated meal:", updated);
 
       setDialogOpen(false);
       setSelectedMeal(null);
@@ -169,7 +168,6 @@ const Dashboard = () => {
   }
 
   async function handleDeleteDay(id) {
-    console.log(id);
     await deleteDay(id);
     setDays((prev) => prev.filter((day) => day._id !== id));
   }

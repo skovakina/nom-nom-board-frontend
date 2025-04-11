@@ -7,6 +7,7 @@ import { Textarea } from "../ui/textarea";
 import MainLayout from "../layouts/MainLayout";
 import Header from "../Dashboard/Header";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
+import { SERVER_URL } from "../../services/serverAPI";
 import {
   Card,
   CardContent,
@@ -77,8 +78,7 @@ const Settings = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const backendUrl = import.meta.env.VITE_BACK_END_SERVER_URL;
-      const response = await fetch(`${backendUrl}/users/update`, {
+      const response = await fetch(`${SERVER_URL}/users/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
