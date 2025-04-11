@@ -9,11 +9,12 @@ import {
   deleteDay,
   updateDayMeal,
 } from "../../services/days";
+import { createMeal } from "../../services/meals";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Input } from "../ui/input";
 import { getMeals } from "../../services/meals";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 import MainLayout from "../layouts/MainLayout";
+import MealDialogForm from "./MealDialogForm";
 
 const DEFAULT_CARDS = [
   {
@@ -58,6 +59,7 @@ const Dashboard = () => {
   const [cards, setCards] = useState([]);
   const [days, setDays] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [newMeal, setNewMeal] = useState({ title: "", note: "" });
 
   useEffect(() => {
     async function fetchDays() {
@@ -109,6 +111,25 @@ const Dashboard = () => {
 
   function handleCreateClick() {
     setDialogOpen(true);
+  }
+
+  async function handleSaveMeal() {
+    if (!newMeal.title.trim()) return;
+
+    try {
+      const created = await createMeal(newMeal);
+      const meal = {
+        ...created,
+        id: created._id,
+        column: "fridge",
+        mealType: "unassigned",
+      };
+      setCards((prev) => [...prev, meal]);
+      setNewMeal({ title: "", note: "" });
+      setDialogOpen(false);
+    } catch (err) {
+      console.error("Failed to create meal:", err);
+    }
   }
 
   async function handleAddDay() {
@@ -179,14 +200,13 @@ const Dashboard = () => {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add a new meal</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Input placeholder="Meal title" />
-            <Input placeholder="Optional note" />
-          </div>
+        <DialogContent className="sm:max-w-[425px] p-0">
+          <MealDialogForm
+            mode="create"
+            meal={newMeal}
+            onChange={setNewMeal}
+            onSubmit={handleSaveMeal}
+          />
         </DialogContent>
       </Dialog>
     </MainLayout>
