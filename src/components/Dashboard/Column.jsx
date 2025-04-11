@@ -20,6 +20,7 @@ export default function Column({
   setCards,
   mealSections = ["unassigned"],
   onDelete,
+  onCreate,
 }) {
   const [active, setActive] = useState(false);
 
@@ -29,7 +30,9 @@ export default function Column({
   }
 
   function handleAddMeal() {
-    //TODO: open popup
+    if (onCreate) {
+      onCreate();
+    }
     console.log("add meal");
   }
 

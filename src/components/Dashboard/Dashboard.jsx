@@ -9,6 +9,8 @@ import {
   deleteDay,
   updateDayMeal,
 } from "../../services/days";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Input } from "../ui/input";
 import { getMeals } from "../../services/meals";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 import MainLayout from "../layouts/MainLayout";
@@ -55,6 +57,7 @@ const MEAL_SECTIONS = [
 const Dashboard = () => {
   const [cards, setCards] = useState([]);
   const [days, setDays] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     async function fetchDays() {
@@ -104,6 +107,10 @@ const Dashboard = () => {
     });
   };
 
+  function handleCreateClick() {
+    setDialogOpen(true);
+  }
+
   async function handleAddDay() {
     const nextIndex = days.length;
     const today = new Date();
@@ -148,6 +155,7 @@ const Dashboard = () => {
             cards={cards}
             setCards={setCards}
             mealSections={["unassigned"]}
+            onCreate={handleCreateClick}
           />
           {days.map((day) => (
             <Column
@@ -169,6 +177,18 @@ const Dashboard = () => {
           </Button>
         </div>
       </div>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add a new meal</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <Input placeholder="Meal title" />
+            <Input placeholder="Optional note" />
+          </div>
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 };
