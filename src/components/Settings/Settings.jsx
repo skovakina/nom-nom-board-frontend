@@ -45,6 +45,7 @@ const Settings = () => {
         }
   
         const data = await res.json();
+        // If your backend wraps the user object in a "user" key:
         const freshUser = data.user || data;
   
         setUser(freshUser);
@@ -90,8 +91,7 @@ const Settings = () => {
         throw new Error("Failed to update profile");
       }
 
-      const responseData = await response.json();
-      const updatedUser = responseData.user;
+      const updatedUser = await response.json();
       setUser(updatedUser); 
       toast.success("Profile updated successfully!");
     } catch (error) {
