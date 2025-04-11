@@ -4,13 +4,16 @@ import { Link } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router";
 
 const DashboardNavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setUser(null);
+    navigate("/");
   };
   return (
     <nav
@@ -39,11 +42,9 @@ const DashboardNavBar = () => {
                 </Button>
               </li>
               <li>
-                <Button variant="outline">
+                <Button variant="outline" onClick={handleSignOut}>
                   <LogOut />
-                  <Link to="/" onClick={handleSignOut}>
-                    Log Out
-                  </Link>
+                  Log Out
                 </Button>
               </li>
             </>
