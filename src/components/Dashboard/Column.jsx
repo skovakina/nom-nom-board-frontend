@@ -3,7 +3,7 @@ import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
-import { updateDayMeal } from "../../services/days";
+import { updateMeal } from "../../services/meals";
 
 const mealTypeMap = {
   breakfast: "breakfast",
@@ -20,16 +20,21 @@ export default function Column({
   setCards,
   mealSections = ["unassigned"],
   onDelete,
+  onCreate,
+  onEdit,
 }) {
   const [active, setActive] = useState(false);
 
   function handleEdit(id) {
-    //TODO: open popup to edit/delete meal
-    console.log(id);
+    const meal = cards.find((c) => c.id === id);
+    if (meal && onEdit) {
+      onEdit(meal);
+    }
   }
-
   function handleAddMeal() {
-    //TODO: open popup
+    if (onCreate) {
+      onCreate();
+    }
     console.log("add meal");
   }
 
@@ -85,8 +90,7 @@ export default function Column({
       setCards(copy);
       if (column !== "fridge" && mealType !== "unassigned") {
         try {
-          // todo: create meals cards
-          // await updateDayMeal(column, mealTypeMap[mealType], cardId);
+          await updateMeal(cardId, { column, mealType });
           console.log("Meal saved to day", column, mealType, cardId);
         } catch (error) {
           console.error("Failed to update day:", error);
@@ -209,7 +213,7 @@ export default function Column({
                   <MealCard
                     key={c.id}
                     {...c}
-                    onEdit={handleEdit}
+                    onEdit={() => handleEdit(c.id)}
                     handleDragStart={handleDragStart}
                   />
                 ))}
@@ -218,7 +222,6 @@ export default function Column({
           );
         })}
         <DropIndicator beforeId={null} column={column} />
-        {/* <AddCard column={column} setCards={setCards} /> */}
       </div>
     </div>
   );
