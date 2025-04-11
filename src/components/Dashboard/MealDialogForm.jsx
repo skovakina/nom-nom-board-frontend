@@ -11,7 +11,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 
 export default function MealDialogForm({
-  mode = "create", // or "edit"
+  mode = "create",
   meal,
   onChange,
   onSubmit,
@@ -26,23 +26,25 @@ export default function MealDialogForm({
         <CardTitle>{isEdit ? "Edit Meal" : "Add New Meal"}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <Label htmlFor="title">Meal title</Label>
-          <Input
-            id="title"
-            placeholder="e.g. Chicken Curry"
-            value={meal.title}
-            onChange={(e) => onChange({ ...meal, title: e.target.value })}
-          />
-        </div>
-        <div>
-          <Label htmlFor="note">Optional note</Label>
-          <Input
-            id="note"
-            placeholder="e.g. with rice and vegetables"
-            value={meal.note}
-            onChange={(e) => onChange({ ...meal, note: e.target.value })}
-          />
+        <div className="grid w-full items-center gap-4">
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="title">Meal title</Label>
+            <Input
+              id="title"
+              placeholder="e.g. Chicken Curry"
+              value={meal.title}
+              onChange={(e) => onChange({ ...meal, title: e.target.value })}
+            />
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="note">Optional note</Label>
+            <Input
+              id="note"
+              placeholder="e.g. with rice and vegetables"
+              value={meal.note}
+              onChange={(e) => onChange({ ...meal, note: e.target.value })}
+            />
+          </div>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">

@@ -3,7 +3,6 @@ import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
-import { updateDayMeal } from "../../services/days";
 
 const mealTypeMap = {
   breakfast: "breakfast",
