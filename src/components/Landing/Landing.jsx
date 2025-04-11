@@ -9,7 +9,7 @@ const Landing = () => {
         <DashboardNavBar />
         <main className=" min-h-screen  flex flex-col items-center">
           <div className="w-full md:w-[696px] h-auto md:h-[459px] mt-[50px] md:mt-[100px] flex flex-col items-center justify-center py-8">
-            <Button variant="default" className="mb-4">
+            <Button variant="secondary" className="mb-4">
               <Link to="/sign-up">✨New - Work in progress</Link>
             </Button>
 

@@ -5,14 +5,6 @@ import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { updateMeal } from "../../services/meals";
 
-const mealTypeMap = {
-  breakfast: "breakfast",
-  lunch: "lunch",
-  dinner: "dinner",
-  "first snack": "firstSnack",
-  "second snack": "secondSnack",
-};
-
 export default function Column({
   title,
   cards,

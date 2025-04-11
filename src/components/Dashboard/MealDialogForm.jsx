@@ -1,14 +1,8 @@
-// components/MealDialogForm.jsx
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
+import { DialogTitle } from "../ui/dialog";
 
 export default function MealDialogForm({
   mode = "create",
@@ -23,7 +17,7 @@ export default function MealDialogForm({
   return (
     <Card className="shadow-none border-none ">
       <CardHeader>
-        <CardTitle>{isEdit ? "Edit Meal" : "Add New Meal"}</CardTitle>
+        <DialogTitle>{isEdit ? "Edit Meal" : "Add New Meal"}</DialogTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid w-full items-center gap-4">

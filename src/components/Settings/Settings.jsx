@@ -16,10 +16,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { toast } from "sonner";
+
 const Settings = () => {
   const { user, setUser } = useContext(UserContext);
 
-  // Initialize form state with current user data
   const [formData, setFormData] = useState({
     username: user?.username || "",
     email: user?.email || "",
@@ -52,10 +53,23 @@ const Settings = () => {
         throw new Error("Failed to update profile");
       }
 
+      toast.success("Hooray!", {
+        description: "Your profile has been updated successfully.",
+        action: {
+          label: "Close",
+        },
+      });
+
       const updatedUser = await response.json();
       setUser(updatedUser);
     } catch (error) {
       console.error("Error updating profile:", error);
+      toast.error("Oops!", {
+        description: "Something went wrong. Please try again.",
+        action: {
+          label: "Close",
+        },
+      });
     }
   };
 
