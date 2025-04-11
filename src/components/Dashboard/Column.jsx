@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { updateDayMeal } from "../../services/days";
+import { col } from "framer-motion/client";
 
 const mealTypeMap = {
   breakfast: "breakfast",
@@ -21,14 +22,16 @@ export default function Column({
   mealSections = ["unassigned"],
   onDelete,
   onCreate,
+  onEdit,
 }) {
   const [active, setActive] = useState(false);
 
   function handleEdit(id) {
-    //TODO: open popup to edit/delete meal
-    console.log(id);
+    const meal = cards.find((c) => c.id === id);
+    if (meal && onEdit) {
+      onEdit(meal);
+    }
   }
-
   function handleAddMeal() {
     if (onCreate) {
       onCreate();
@@ -84,12 +87,13 @@ export default function Column({
 
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
+      console.log("cardToTransfer", copy);
+      console.log(column);
 
       setCards(copy);
       if (column !== "fridge" && mealType !== "unassigned") {
         try {
-          // todo: create meals cards
-          // await updateDayMeal(column, mealTypeMap[mealType], cardId);
+          await updateDayMeal(column, mealTypeMap[mealType], cardId);
           console.log("Meal saved to day", column, mealType, cardId);
         } catch (error) {
           console.error("Failed to update day:", error);
@@ -212,7 +216,7 @@ export default function Column({
                   <MealCard
                     key={c.id}
                     {...c}
-                    onEdit={handleEdit}
+                    onEdit={() => handleEdit(c.id)}
                     handleDragStart={handleDragStart}
                   />
                 ))}

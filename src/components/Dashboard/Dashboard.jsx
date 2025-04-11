@@ -9,7 +9,7 @@ import {
   deleteDay,
   updateDayMeal,
 } from "../../services/days";
-import { createMeal } from "../../services/meals";
+import { createMeal, deleteMeal, updateMeal } from "../../services/meals";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { getMeals } from "../../services/meals";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
@@ -60,6 +60,7 @@ const Dashboard = () => {
   const [days, setDays] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newMeal, setNewMeal] = useState({ title: "", note: "" });
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   useEffect(() => {
     async function fetchDays() {
@@ -132,6 +133,51 @@ const Dashboard = () => {
     }
   }
 
+  function handleEditMeal(meal) {
+    setSelectedMeal(meal);
+    setDialogOpen(true);
+  }
+
+  async function handleUpdateMeal() {
+    if (!selectedMeal?.title.trim()) return;
+
+    try {
+      const res = await updateMeal(selectedMeal.id, {
+        title: selectedMeal.title,
+        note: selectedMeal.note,
+      });
+
+      const updated = {
+        ...res,
+        id: res._id,
+        column:
+          res.mealType === "unassigned" ? "fridge" : res.column || "fridge",
+        mealType: res.mealType || "unassigned",
+      };
+
+      setCards((prev) =>
+        prev.map((m) => (m.id === selectedMeal.id ? updated : m))
+      );
+      console.log("Updated meal:", updated);
+
+      setDialogOpen(false);
+      setSelectedMeal(null);
+    } catch (err) {
+      console.error("Failed to update meal:", err);
+    }
+  }
+
+  async function handleDeleteMeal() {
+    try {
+      await deleteMeal(selectedMeal.id);
+      setCards((prev) => prev.filter((m) => m.id !== selectedMeal.id));
+      setDialogOpen(false);
+      setSelectedMeal(null);
+    } catch (err) {
+      console.error("Failed to delete meal:", err);
+    }
+  }
+
   async function handleAddDay() {
     const nextIndex = days.length;
     const today = new Date();
@@ -177,18 +223,25 @@ const Dashboard = () => {
             setCards={setCards}
             mealSections={["unassigned"]}
             onCreate={handleCreateClick}
+            onEdit={handleEditMeal}
           />
-          {days.map((day) => (
-            <Column
-              key={day._id}
-              title={getTitleFromDate(day.date)}
-              column={day._id}
-              cards={cards}
-              setCards={setCards}
-              mealSections={MEAL_SECTIONS}
-              onDelete={handleDeleteDay}
-            />
-          ))}
+          {days.map(
+            (day) => (
+              console.log(day),
+              (
+                <Column
+                  key={day._id}
+                  title={getTitleFromDate(day.date)}
+                  column={day._id}
+                  cards={cards}
+                  setCards={setCards}
+                  mealSections={MEAL_SECTIONS}
+                  onDelete={handleDeleteDay}
+                  onEdit={handleEditMeal}
+                />
+              )
+            )
+          )}
           <Button
             onClick={handleAddDay}
             className="w-full !justify-start w-56 shrink-0"
@@ -199,14 +252,33 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          setDialogOpen(open);
+          if (!open) {
+            setSelectedMeal(null);
+            setNewMeal({ title: "", note: "" });
+          }
+        }}
+      >
         <DialogContent className="sm:max-w-[425px] p-0">
-          <MealDialogForm
-            mode="create"
-            meal={newMeal}
-            onChange={setNewMeal}
-            onSubmit={handleSaveMeal}
-          />
+          {selectedMeal ? (
+            <MealDialogForm
+              mode="edit"
+              meal={selectedMeal}
+              onChange={setSelectedMeal}
+              onSubmit={handleUpdateMeal}
+              onDelete={handleDeleteMeal}
+            />
+          ) : (
+            <MealDialogForm
+              mode="create"
+              meal={newMeal}
+              onChange={setNewMeal}
+              onSubmit={handleSaveMeal}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </MainLayout>

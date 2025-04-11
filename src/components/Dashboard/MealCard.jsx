@@ -26,7 +26,7 @@ export default function MealCard({ handleDragStart, onEdit, ...props }) {
           variant="ghost"
           size="icon"
           onClick={() => onEdit(id)}
-          className="cursor-pointer absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity "
+          className="cursor-pointer absolute right-2 top-2 opacity-60 "
         >
           <SquarePen className="h-4 w-4" />
         </Button>
