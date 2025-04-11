@@ -36,10 +36,12 @@ const DashboardNavBar = () => {
           {user ? (
             <>
               <li>
-                <Button variant="outline">
-                  <Settings />
-                  <Link to="/settings">Settings</Link>
-                </Button>
+                <Link to="/settings">
+                  <Button variant="outline">
+                    <Settings />
+                    Settings
+                  </Button>
+                </Link>
               </li>
               <li>
                 <Button variant="outline" onClick={handleSignOut}>
@@ -51,14 +53,14 @@ const DashboardNavBar = () => {
           ) : (
             <>
               <li>
-                <Button variant="outline">
-                  <Link to="/sign-up">Sign Up</Link>
-                </Button>
+                <Link to="/sign-up">
+                  <Button variant="outline">Sign Up</Button>
+                </Link>
               </li>
               <li>
-                <Button>
-                  <Link to="/sign-in">Sign In</Link>
-                </Button>
+                <Link to="/sign-in">
+                  <Button>Sign In</Button>
+                </Link>
               </li>
             </>
           )}
