@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { updateDayMeal } from "../../services/days";
-import { col } from "framer-motion/client";
 
 const mealTypeMap = {
   breakfast: "breakfast",

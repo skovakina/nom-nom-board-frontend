@@ -16,37 +16,6 @@ import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 import MainLayout from "../layouts/MainLayout";
 import MealDialogForm from "./MealDialogForm";
 
-const DEFAULT_CARDS = [
-  {
-    title: "Baked Potato",
-    note: " with cheese and bacon",
-    id: "1",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Italian Pasta",
-    note: " with marinara sauce",
-    id: "2",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Spaghetti",
-    note: " with marinara sauce",
-    id: "3",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Salad",
-    note: " with tomato and lettuce",
-    id: "4",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-];
-
 const MEAL_SECTIONS = [
   "breakfast",
   "first snack",
