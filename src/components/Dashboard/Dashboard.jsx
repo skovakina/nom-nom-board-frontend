@@ -3,45 +3,13 @@ import Column from "./Column";
 import Header from "./Header";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import {
-  getDays,
-  createDay,
-  deleteDay,
-  updateDayMeal,
-} from "../../services/days";
+import { getDays, createDay, deleteDay } from "../../services/days";
+import { createMeal, deleteMeal, updateMeal } from "../../services/meals";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { getMeals } from "../../services/meals";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 import MainLayout from "../layouts/MainLayout";
-
-const DEFAULT_CARDS = [
-  {
-    title: "Baked Potato",
-    note: " with cheese and bacon",
-    id: "1",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Italian Pasta",
-    note: " with marinara sauce",
-    id: "2",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Spaghetti",
-    note: " with marinara sauce",
-    id: "3",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-  {
-    title: "Salad",
-    note: " with tomato and lettuce",
-    id: "4",
-    column: "fridge",
-    mealType: "unassigned",
-  },
-];
+import MealDialogForm from "./MealDialogForm";
 
 const MEAL_SECTIONS = [
   "breakfast",
@@ -52,8 +20,12 @@ const MEAL_SECTIONS = [
 ];
 
 const Dashboard = () => {
-  const [cards, setCards] = useState(DEFAULT_CARDS);
+  const [cards, setCards] = useState([]);
   const [days, setDays] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newMeal, setNewMeal] = useState({ title: "", note: "" });
+  const [selectedMeal, setSelectedMeal] = useState(null);
+
   useEffect(() => {
     async function fetchDays() {
       const result = await getDays();
@@ -61,6 +33,26 @@ const Dashboard = () => {
     }
 
     fetchDays();
+  }, []);
+
+  useEffect(() => {
+    async function fetchMeals() {
+      try {
+        const data = await getMeals();
+        const transformed = data.map((meal) => ({
+          ...meal,
+          id: meal._id,
+          column:
+            meal.mealType === "unassigned" ? "fridge" : meal.column || "fridge",
+          mealType: meal.mealType || "unassigned",
+        }));
+        setCards(transformed);
+      } catch (err) {
+        console.error("Failed to fetch meals:", err);
+      }
+    }
+
+    fetchMeals();
   }, []);
 
   const getTitleFromDate = (date) => {
@@ -81,6 +73,74 @@ const Dashboard = () => {
       weekday: "long",
     });
   };
+
+  function handleCreateClick() {
+    setDialogOpen(true);
+  }
+
+  async function handleSaveMeal() {
+    if (!newMeal.title.trim()) return;
+
+    try {
+      const created = await createMeal(newMeal);
+      const meal = {
+        ...created,
+        id: created._id,
+        column: "fridge",
+        mealType: "unassigned",
+      };
+      setCards((prev) => [...prev, meal]);
+      setNewMeal({ title: "", note: "" });
+      setDialogOpen(false);
+    } catch (err) {
+      console.error("Failed to create meal:", err);
+    }
+  }
+
+  function handleEditMeal(meal) {
+    setSelectedMeal(meal);
+    setDialogOpen(true);
+  }
+
+  async function handleUpdateMeal() {
+    if (!selectedMeal?.title.trim()) return;
+
+    try {
+      const res = await updateMeal(selectedMeal.id, {
+        title: selectedMeal.title,
+        note: selectedMeal.note,
+      });
+
+      const updated = {
+        ...res,
+        id: res._id,
+        column:
+          res.mealType === "unassigned" ? "fridge" : res.column || "fridge",
+        mealType: res.mealType || "unassigned",
+      };
+
+      setCards((prev) =>
+        prev.map((m) => (m.id === selectedMeal.id ? updated : m))
+      );
+      console.log("Updated meal:", updated);
+
+      setDialogOpen(false);
+      setSelectedMeal(null);
+    } catch (err) {
+      console.error("Failed to update meal:", err);
+    }
+  }
+
+  async function handleDeleteMeal() {
+    try {
+      await deleteMeal(selectedMeal.id);
+      setCards((prev) => prev.filter((m) => m.id !== selectedMeal.id));
+      setDialogOpen(false);
+      setSelectedMeal(null);
+    } catch (err) {
+      console.error("Failed to delete meal:", err);
+    }
+  }
 
   async function handleAddDay() {
     const nextIndex = days.length;
@@ -126,9 +186,12 @@ const Dashboard = () => {
             cards={cards}
             setCards={setCards}
             mealSections={["unassigned"]}
+            onCreate={handleCreateClick}
+            onEdit={handleEditMeal}
           />
           {days.map((day) => (
             <Column
+              day={day}
               key={day._id}
               title={getTitleFromDate(day.date)}
               column={day._id}
@@ -136,6 +199,7 @@ const Dashboard = () => {
               setCards={setCards}
               mealSections={MEAL_SECTIONS}
               onDelete={handleDeleteDay}
+              onEdit={handleEditMeal}
             />
           ))}
           <Button
@@ -147,6 +211,36 @@ const Dashboard = () => {
           </Button>
         </div>
       </div>
+
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          setDialogOpen(open);
+          if (!open) {
+            setSelectedMeal(null);
+            setNewMeal({ title: "", note: "" });
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-[425px] p-0">
+          {selectedMeal ? (
+            <MealDialogForm
+              mode="edit"
+              meal={selectedMeal}
+              onChange={setSelectedMeal}
+              onSubmit={handleUpdateMeal}
+              onDelete={handleDeleteMeal}
+            />
+          ) : (
+            <MealDialogForm
+              mode="create"
+              meal={newMeal}
+              onChange={setNewMeal}
+              onSubmit={handleSaveMeal}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 };
