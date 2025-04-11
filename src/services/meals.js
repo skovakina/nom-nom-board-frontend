@@ -43,6 +43,7 @@ export async function createMeal({ title, note }) {
 
 // PUT update an existing meal
 export async function updateMeal(mealId, updates) {
+  console.log("updates", updates);
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${BASE_URL}/${mealId}`, {
