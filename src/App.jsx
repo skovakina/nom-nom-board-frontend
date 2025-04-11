@@ -21,7 +21,6 @@ const ProtectedRoute = ({ user, children }) => {
 function App() {
   const { user } = useContext(UserContext);
 
-  console.log(user);
   return (
     <Routes>
       <Route path="/" element={user ? <Dashboard /> : <Landing />} />

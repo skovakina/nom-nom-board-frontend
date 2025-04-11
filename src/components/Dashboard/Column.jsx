@@ -35,7 +35,6 @@ export default function Column({
     if (onCreate) {
       onCreate();
     }
-    console.log("add meal");
   }
 
   const handleDragStart = (e, card) => {
@@ -91,7 +90,6 @@ export default function Column({
       if (column !== "fridge" && mealType !== "unassigned") {
         try {
           await updateMeal(cardId, { column, mealType });
-          console.log("Meal saved to day", column, mealType, cardId);
         } catch (error) {
           console.error("Failed to update day:", error);
         }
