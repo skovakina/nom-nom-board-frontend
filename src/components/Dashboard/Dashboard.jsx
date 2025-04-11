@@ -9,6 +9,7 @@ import {
   deleteDay,
   updateDayMeal,
 } from "../../services/days";
+import { getMeals } from "../../services/meals";
 import DashboardNavBar from "../DashboardNavBar/DashboardNavBar";
 import MainLayout from "../layouts/MainLayout";
 
@@ -52,8 +53,9 @@ const MEAL_SECTIONS = [
 ];
 
 const Dashboard = () => {
-  const [cards, setCards] = useState(DEFAULT_CARDS);
+  const [cards, setCards] = useState([]);
   const [days, setDays] = useState([]);
+
   useEffect(() => {
     async function fetchDays() {
       const result = await getDays();
@@ -61,6 +63,26 @@ const Dashboard = () => {
     }
 
     fetchDays();
+  }, []);
+
+  useEffect(() => {
+    async function fetchMeals() {
+      try {
+        const data = await getMeals();
+        const transformed = data.map((meal) => ({
+          ...meal,
+          id: meal._id,
+          column:
+            meal.mealType === "unassigned" ? "fridge" : meal.column || "fridge",
+          mealType: meal.mealType || "unassigned",
+        }));
+        setCards(transformed);
+      } catch (err) {
+        console.error("Failed to fetch meals:", err);
+      }
+    }
+
+    fetchMeals();
   }, []);
 
   const getTitleFromDate = (date) => {
