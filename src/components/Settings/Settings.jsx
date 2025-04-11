@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -16,6 +16,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { toast } from "sonner";
+
 const Settings = () => {
   const { user, setUser } = useContext(UserContext);
 
@@ -26,6 +28,43 @@ const Settings = () => {
     bio: user?.bio || "",
     avatar: user?.avatar || "",
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const backendUrl = import.meta.env.VITE_BACK_END_SERVER_URL;
+        const res = await fetch(`${backendUrl}/users/${user?._id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (!res.ok) {
+          throw new Error("Failed to fetch user");
+        }
+  
+        const data = await res.json();
+        // If your backend wraps the user object in a "user" key:
+        const freshUser = data.user || data;
+  
+        setUser(freshUser);
+        setFormData({
+          username: freshUser.username || "",
+          email: freshUser.email || "",
+          bio: freshUser.bio || "",
+          avatar: freshUser.avatar || "",
+        });
+      } catch (err) {
+        console.error("Error loading user info:", err);
+      }
+    };
+  
+    if (user?._id) {
+      fetchUserData();
+    }
+  }, [user?._id]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,9 +92,11 @@ const Settings = () => {
       }
 
       const updatedUser = await response.json();
-      setUser(updatedUser);
+      setUser(updatedUser); 
+      toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
+      toast.error("Failed to update profile");
     }
   };
 

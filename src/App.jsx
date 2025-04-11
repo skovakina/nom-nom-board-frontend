@@ -7,6 +7,7 @@ import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Settings from "./components/Settings/Settings";
 import { UserContext } from "./contexts/UserContext";
+import { Toaster } from "sonner";
 
 // this is how you import shadcn ui https://ui.shadcn.com/docs/components/button
 // is you want to use shadcn components, you need to follow the docs to import them
@@ -20,7 +21,6 @@ const ProtectedRoute = ({ user, children }) => {
 };
 function App() {
   const { user } = useContext(UserContext);
-
   return (
     <Routes>
       <Route path="/" element={user ? <Dashboard /> : <Landing />} />
@@ -31,6 +31,7 @@ function App() {
         element={
           <ProtectedRoute user={user}>
             <Settings />
+            <Toaster />
           </ProtectedRoute>
         }
       />
