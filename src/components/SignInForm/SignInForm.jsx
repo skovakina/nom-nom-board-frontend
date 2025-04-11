@@ -7,6 +7,7 @@ import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import AuthLayout from "../layouts/AuthLayout";
+import CarouselComponent from "../Carousel/Carousel";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -95,12 +96,20 @@ const SignInForm = () => {
                 </div>
               </div>
             </form>
+<<<<<<< HEAD
+
+            <div className="relative z-10 mt-4">
+              {" "}
+              {/* Added margin-top to separate carousel */}
+              <CarouselComponent className="basis-1/3" />
+=======
             <div className="relative hidden bg-muted md:block">
               <img
                 src="/placeholder.svg"
                 alt="Image"
                 className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
               />
+>>>>>>> 6be3c5887e055c20d747eacda02949817b553042
             </div>
           </CardContent>
         </Card>
