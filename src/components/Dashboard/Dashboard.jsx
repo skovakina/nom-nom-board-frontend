@@ -147,24 +147,13 @@ const Dashboard = () => {
     const newDate = new Date(today);
     newDate.setDate(today.getDate() + nextIndex);
 
-    const newDay = {
-      date: newDate.toISOString(),
-      breakfast: null,
-      lunch: null,
-      dinner: null,
-      firstSnack: null,
-      secondSnack: null,
-    };
+    try {
+      const createdDay = await createDay(newDate);
 
-    await createDay(newDate);
-
-    setDays((prev) => [
-      ...prev,
-      {
-        ...newDay,
-        _id: `day-${nextIndex}`,
-      },
-    ]);
+      setDays((prev) => [...prev, createdDay]);
+    } catch (error) {
+      console.error("Failed to create day:", error);
+    }
   }
 
   async function handleDeleteDay(id) {
