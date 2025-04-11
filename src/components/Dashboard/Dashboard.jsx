@@ -3,12 +3,7 @@ import Column from "./Column";
 import Header from "./Header";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import {
-  getDays,
-  createDay,
-  deleteDay,
-  updateDayMeal,
-} from "../../services/days";
+import { getDays, createDay, deleteDay } from "../../services/days";
 import { createMeal, deleteMeal, updateMeal } from "../../services/meals";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { getMeals } from "../../services/meals";

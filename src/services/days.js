@@ -61,29 +61,6 @@ export async function createDay(date = new Date()) {
   return res.json();
 }
 
-export async function updateDayMeal(dayId, mealType, mealId) {
-  const token = localStorage.getItem("token");
-
-  const payload = {
-    [mealType]: mealId,
-  };
-
-  const res = await fetch(`${BASE_URL}/${dayId}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to update day");
-  }
-
-  return res.json();
-}
-
 export async function deleteDay(dayId) {
   const token = localStorage.getItem("token");
 
