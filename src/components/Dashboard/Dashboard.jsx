@@ -189,23 +189,19 @@ const Dashboard = () => {
             onCreate={handleCreateClick}
             onEdit={handleEditMeal}
           />
-          {days.map(
-            (day) => (
-              console.log(day),
-              (
-                <Column
-                  key={day._id}
-                  title={getTitleFromDate(day.date)}
-                  column={day._id}
-                  cards={cards}
-                  setCards={setCards}
-                  mealSections={MEAL_SECTIONS}
-                  onDelete={handleDeleteDay}
-                  onEdit={handleEditMeal}
-                />
-              )
-            )
-          )}
+          {days.map((day) => (
+            <Column
+              day={day}
+              key={day._id}
+              title={getTitleFromDate(day.date)}
+              column={day._id}
+              cards={cards}
+              setCards={setCards}
+              mealSections={MEAL_SECTIONS}
+              onDelete={handleDeleteDay}
+              onEdit={handleEditMeal}
+            />
+          ))}
           <Button
             onClick={handleAddDay}
             className="w-full !justify-start w-56 shrink-0"

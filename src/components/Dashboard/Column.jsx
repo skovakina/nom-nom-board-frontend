@@ -3,6 +3,7 @@ import MealCard from "./MealCard";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { updateMeal } from "../../services/meals";
 
 const mealTypeMap = {
   breakfast: "breakfast",
@@ -85,13 +86,12 @@ export default function Column({
 
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
-      console.log("cardToTransfer", copy);
-      console.log(column);
 
       setCards(copy);
       if (column !== "fridge" && mealType !== "unassigned") {
         try {
-          await updateDayMeal(column, mealTypeMap[mealType], cardId);
+          await updateMeal(column, mealTypeMap[mealType], cardId);
+          console.log("Meal saved to day", column, mealType, cardId);
           console.log("Meal saved to day", column, mealType, cardId);
         } catch (error) {
           console.error("Failed to update day:", error);
@@ -223,7 +223,6 @@ export default function Column({
           );
         })}
         <DropIndicator beforeId={null} column={column} />
-        {/* <AddCard column={column} setCards={setCards} /> */}
       </div>
     </div>
   );
