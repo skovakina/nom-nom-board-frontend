@@ -63,7 +63,7 @@ const SignUpForm = () => {
               <img
                 src="/images/2.png"
                 alt="a person cooking happily"
-                className="w-full h-[50vh] object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
+                className="w-full h-auto object-cover rounded-lg dark:brightness-[0.2] dark:grayscale"
               />
               <div className="p-4">
                 <p className="text-sm text-center mb-3">

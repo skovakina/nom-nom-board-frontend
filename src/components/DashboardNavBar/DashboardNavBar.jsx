@@ -22,7 +22,7 @@ const DashboardNavBar = () => {
         <li
           className={`${
             !user
-              ? "absolute left-1/2 transform -translate-x-1/2 text-center"
+              ? "text-left md:absolute md:left-1/2 md:transform md:-translate-x-1/2"
               : "text-left"
           }`}
         >
